@@ -8,17 +8,24 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
 public class FrmTablaDistribucion extends JFrame {
 
     JComboBox cmbRespuesta;
     JList lstMuestra;
     String[] opciones = new String[] { "Excelente", "Buena", "Regular", "Mala" };
+    String[] encabezados = new String[] { "Variable",
+            "Frecuencia absoluta (f)",
+            "Frecuencia acumulada (F)",
+            "Frecuencia relativa (fr)",
+            "Frecuencia porcentual (%f)" };
 
     public FrmTablaDistribucion() {
-        setSize(400, 300);
+        setSize(600, 500);
         setTitle("Tabla deDistribución");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -54,6 +61,16 @@ public class FrmTablaDistribucion extends JFrame {
         btnTablaDistribucion.setBounds(10, 200, 100, 25);
         getContentPane().add(btnTablaDistribucion);
 
+        // agregar la tabla
+        JTable tblTablaDistribucion = new JTable();
+        JScrollPane spTablaDistribucion = new JScrollPane(tblTablaDistribucion);
+        spTablaDistribucion.setBounds(10, 230, 500, 200);
+        getContentPane().add(spTablaDistribucion);
+
+        //asignar los datos a la tabla
+        DefaultTableModel dtm = new DefaultTableModel(null, encabezados);
+        tblTablaDistribucion.setModel(dtm);
+
         // eventos de la GUI
         btnAgregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -80,10 +97,10 @@ public class FrmTablaDistribucion extends JFrame {
 
     private void agregarDato() {
 
-            String respuesta = opciones[cmbRespuesta.getSelectedIndex()];
-            totalDatos++;
-            muestra[totalDatos] = respuesta;
-            mostrarMuestra();
+        String respuesta = opciones[cmbRespuesta.getSelectedIndex()];
+        totalDatos++;
+        muestra[totalDatos] = respuesta;
+        mostrarMuestra();
 
     }
 
@@ -110,7 +127,7 @@ public class FrmTablaDistribucion extends JFrame {
         }
     }
 
-    private void calcularTablaDistribucion(){
+    private void calcularTablaDistribucion() {
 
     }
 }
